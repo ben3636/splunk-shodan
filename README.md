@@ -23,5 +23,6 @@ Data saved to an index will appear in the natural json format, you may choose to
 ---
 ![Alt text](Demo4.png)
 
-See above for an example dataset in the sample dashboard.
+See above for an example dataset in the sample dashboard. The source code for this dashboard is provided in this repository if you need something to get you started :)
+
 > NOTE: If you are using `spath` to parse out large results you may need to create a local limits.conf file and specify a higher `extraction_cutoff` value to prevent clipping of data. This process is described here: https://docs.splunk.com/Documentation/Splunk/9.4.2/SearchReference/Spath
