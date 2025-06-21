@@ -1,5 +1,5 @@
 # Simple Attack Surface Management with Shodan - Directly in Splunk
-This app is a combination of custom commands and dashboards that enables you to easily query Shodan directly in Splunk. The included dashboard allows for easy visualization of the data and even calls out CVE's present in your ASM data that are on CISA Known Exploited Vulnerability list. 
+This app is a combination of custom commands and dashboards that enables you to easily query Shodan directly in Splunk. The included dashboard allows for easy visualization of the data and even calls out CVE's present in your ASM data that are on CISA's Known Exploited Vulnerability list. 
 
 The only setup required is dropping your API key in the shodan_configuration.csv lookup which is already present in the app. From there, follow the syntax below to use :)
 
