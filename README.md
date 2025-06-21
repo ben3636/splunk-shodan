@@ -33,6 +33,7 @@ If you're a real pro, you've installed this Shodan command in Splunk and set up 
 
 By now you probably know where I'm going with this. We need to grab a copy of the latest CSV version of the KEV and we could certainly do this manually and upload it as a lookup in Splunk except I'm way ahead of you on that front. I've already included an `updatelookup` command in this app and if you've installed it you can use the command below to pull the KEV down right in Splunk:
 > | updatelookup url="https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv" lookup_name="kev"
+
 For bonus points, add that logic to a scheduled search that runs daily and you'll have the fresh-est CSV in town.
 
 Once that's done we can extract any CVE's present in your ASM data on the fly and see if any line up with those on CISA's naughty list and that's what should get your attention first.
