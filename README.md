@@ -31,7 +31,11 @@ See above for an example dataset in the sample dashboard. The source code for th
 
 If you're a real pro, you've installed this Shodan command in Splunk and set up a scheduled search to run it weekly or even daily to pull fresh data in from Shodan for your domains and/or IP space and collect it into a stash index. This is now a great hunting ground for random searching but you know what one of the easiest wins out there is? `CISA's Known Exploited Vulnerability Catalogue`, or `KEV` for short. This is an updated list of CVE's known to be exploited in the wild and serves as a list of vulnerabilities for organizations to prioritize patching. 
 
-By now you probably know where I'm going with this. Hop over to CISA's site and grab the latest CSV version of the KEV (https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv) and import it as a lookup in Splunk. Once that's done we can extract any CVE's present in your ASM data on the fly and see if any line up with those on CISA's naughty list and that's what should get your attention first.
+By now you probably know where I'm going with this. We need to grab a copy of the latest CSV version of the KEV and we could certainly do this manually and upload it as a lookup in Splunk except I'm way ahead of you on that front. I've already included an `updatelookup` command in this app and if you've installed it you can use the command below to pull the KEV down right in Splunk:
+> | updatelookup url="https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv" lookup_name="kev"
+For bonus points, add that logic to a scheduled search that runs daily and you'll have the fresh-est CSV in town.
+
+Once that's done we can extract any CVE's present in your ASM data on the fly and see if any line up with those on CISA's naughty list and that's what should get your attention first.
 
 ![Alt text](Demo5.png)
 > index=main source=shodan 
