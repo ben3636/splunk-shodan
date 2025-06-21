@@ -19,3 +19,9 @@ Passing a `collect` command after the `shodan` command allows you to save the ou
 ![Alt text](Demo3.png)
 
 Data saved to an index will appear in the natural json format, you may choose to do additional extractions via spath to search specific field data
+
+---
+![Alt text](Demo4.png)
+
+See above for an example dataset in the sample dashboard.
+> NOTE: If you are using `spath` to parse out large results you may need to create a local limits.conf file and specify a higher `extraction_cutoff` value to prevent clipping of data. This process is described here: https://docs.splunk.com/Documentation/Splunk/9.4.2/SearchReference/Spath
