@@ -7,7 +7,7 @@ The only setup required is dropping your API key in the shodan_configuration.csv
 
 That syntax will return the entire JSON blob that Shodan returns, if you want to break up the results into individual rows/events you can use this syntax:
 
-> | shodan search_string="ssl:<DOMAIN>"
+> | shodan search_string="ssl:DOMAIN_HERE"
 > | table data
 > | spath input=data path=matches{} output=matches 
 > | table matches
@@ -15,7 +15,7 @@ That syntax will return the entire JSON blob that Shodan returns, if you want to
 
 If you would like to save the returned results to an index you can add a collect command as well:
 
-> | shodan search_string="ssl:<DOMAIN>"
+> | shodan search_string="ssl:DOMAIN_HERE"
 > | table data
 > | spath input=data path=matches{} output=matches 
 > | table matches
