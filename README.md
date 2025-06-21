@@ -25,7 +25,17 @@ Data saved to an index will appear in the natural json format, you may choose to
 
 See above for an example dataset in the sample dashboard. The source code for this dashboard is provided in this repository if you need something to get you started :)
 
-> NOTE: If you are using `spath` to parse out large results you may need to create a local limits.conf file and specify a higher `extraction_cutoff` value to prevent clipping of data. This process is described here: https://docs.splunk.com/Documentation/Splunk/9.4.2/SearchReference/Spath
+> NOTE: If you are using `spath` to parse out large results you may need to create a local limits.conf file and specify a higher `extraction_cutoff` value to prevent clipping of data. 
+> This is usually performed by creating the file `/opt/splunk/etc/system/local/limits.conf` (be sure to run `chown splunk:splunk limits.conf`) and adding the content below:
+
+ [spath]
+
+
+ extraction_cutoff = 5000000
+
+ extract_all = true
+
+> Save that file, restart Splunk and you should be golden. This process is also described here: https://docs.splunk.com/Documentation/Splunk/9.4.2/SearchReference/Spath
 
 ## Radical Tips for Attack Surface Management
 
