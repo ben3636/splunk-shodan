@@ -1,8 +1,8 @@
 <form version="1.1" theme="dark">
   <label>Shodan</label>
   <search id="base">
-    <query>$shodan_data$ source=shodan $spl$
-| spath</query>
+    <query>$shodan_data$ source=shodan $spl$ | spath
+</query>
     <earliest>$time.earliest$</earliest>
     <latest>$time.latest$</latest>
   </search>
@@ -28,7 +28,7 @@
       <title>ISP's</title>
       <chart>
         <search base="base">
-          <query>| stats count by "matches{}.isp"</query>
+          <query>| stats count by isp</query>
         </search>
         <option name="charting.chart">pie</option>
         <option name="charting.chart.sliceCollapsingThreshold">0</option>
@@ -40,7 +40,7 @@
       <title>Cloud Providers</title>
       <chart>
         <search base="base">
-          <query>| stats count by "matches{}.cloud.provider"</query>
+          <query>| stats count by cloud.provider</query>
         </search>
         <option name="charting.chart">pie</option>
         <option name="charting.chart.sliceCollapsingThreshold">0</option>
@@ -52,7 +52,7 @@
       <title>Organizations</title>
       <chart>
         <search base="base">
-          <query>| stats count by "matches{}.org"</query>
+          <query>| stats count by org</query>
         </search>
         <option name="charting.chart">pie</option>
         <option name="charting.chart.sliceCollapsingThreshold">0</option>
@@ -66,7 +66,7 @@
       <title>Domains</title>
       <chart>
         <search base="base">
-          <query>| stats count by "matches{}.domains{}"</query>
+          <query>| stats count by "domains{}"</query>
         </search>
         <option name="charting.chart">pie</option>
         <option name="charting.chart.sliceCollapsingThreshold">0</option>
@@ -78,7 +78,7 @@
       <title>Ports</title>
       <chart>
         <search base="base">
-          <query>| stats count by "matches{}.port"</query>
+          <query>| stats count by port</query>
         </search>
         <option name="charting.chart">pie</option>
         <option name="charting.chart.sliceCollapsingThreshold">0</option>
@@ -90,7 +90,7 @@
       <title>Products</title>
       <chart>
         <search base="base">
-          <query>| stats count by "matches{}.product"</query>
+          <query>| stats count by product</query>
         </search>
         <option name="charting.chart">pie</option>
         <option name="charting.chart.sliceCollapsingThreshold">0</option>
@@ -104,9 +104,9 @@
       <title>Hostnames</title>
       <table>
         <search base="base">
-          <query>| stats count by "matches{}.hostnames{}"
+          <query>| stats count by "hostnames{}"
 | fields - count
-| rename "matches{}.hostnames{}" AS "Host Names"</query>
+| rename "hostnames{}" AS "Host Names"</query>
         </search>
         <option name="drilldown">none</option>
         <option name="refresh.display">progressbar</option>
@@ -116,10 +116,10 @@
       <title>IP Addresses</title>
       <table>
         <search base="base">
-          <query>| search "matches{}.ip_str"=* 
-| stats count by "matches{}.ip_str"
+          <query>| search ip_str=* 
+| stats count by ip_str
 | fields - count
-| rename "matches{}.ip_str" AS "IP Addresses"</query>
+| rename ip_str AS "IP Addresses"</query>
         </search>
         <option name="drilldown">none</option>
         <option name="refresh.display">progressbar</option>
@@ -129,9 +129,9 @@
       <title>HTTP Titles</title>
       <table>
         <search base="base">
-          <query>| stats count by "matches{}.http.title"
+          <query>| stats count by http.title
 | fields - count
-| rename "matches{}.http.title" AS "HTTP Titles"</query>
+| rename http.title AS "HTTP Titles"</query>
         </search>
         <option name="drilldown">none</option>
         <option name="refresh.display">progressbar</option>
