@@ -33,3 +33,15 @@ If you're a real pro, you've installed this Shodan command in Splunk and set up 
 
 By now you probably know where I'm going with this. Hop over to CISA's site and grab the latest CSV version of the KEV (https://www.cisa.gov/sites/default/files/csv/known_exploited_vulnerabilities.csv) and import it as a lookup in Splunk. Once that's done we can extract any CVE's present in your ASM data on the fly and see if any line up with those on CISA's naughty list and that's what should get your attention first.
 
+![Alt text](Demo5.png)
+> index=main source=shodan 
+> | spath 
+> | rex field=_raw "(?<CVE>CVE-[0-9]{4}-[0-9]*)" max_match=10000000 
+> | stats values(CVE) AS CVE 
+> | mvexpand CVE 
+> | lookup kev.csv cveID AS CVE OUTPUT shortDescription product knownRansomwareCampaignUse 
+> | where isnotnull(shortDescription)
+
+Above is an example of where the sample dataset had some matches for CVE's on CISA's KEV. I'm not showing the actual IPs/Domains for obvious reasons but this is a very easy win in managing high-risk items in your attack surface. This logic can easily be modified into a Splunk alert so you can get pinged if something shows up 6 months from now, just be sure to keep that KEV lookup updated, it gets new CVE's added from time to time. 
+
+Happy Hunting :)
