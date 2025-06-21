@@ -13,7 +13,7 @@ That syntax will return the entire JSON blob that Shodan returns, if you want to
 > | table matches
 > | mvexpand matches
 
-If you would like to save the returned results to an index you can add a collect command as well:
+If you would like to save the returned results to an index you can add a `collect` command as well:
 
 > | shodan search_string="ssl:DOMAIN_HERE"
 > | table data
