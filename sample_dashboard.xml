@@ -1,0 +1,154 @@
+<form version="1.1" theme="dark">
+  <label>Shodan</label>
+  <search id="base">
+    <query>$shodan_data$ source=shodan $spl$
+| spath</query>
+    <earliest>$time.earliest$</earliest>
+    <latest>$time.latest$</latest>
+  </search>
+  <fieldset submitButton="false">
+    <input type="time" token="time" searchWhenChanged="true">
+      <label></label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="text" token="shodan_data" searchWhenChanged="false">
+      <label>Shodan Dataset Prefilter</label>
+      <default>index=main source=shodan</default>
+    </input>
+    <input type="text" token="spl" searchWhenChanged="true">
+      <label>Custom SPL</label>
+      <default>sourcetype=*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>ISP's</title>
+      <chart>
+        <search base="base">
+          <query>| stats count by "matches{}.isp"</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Cloud Providers</title>
+      <chart>
+        <search base="base">
+          <query>| stats count by "matches{}.cloud.provider"</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Organizations</title>
+      <chart>
+        <search base="base">
+          <query>| stats count by "matches{}.org"</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Domains</title>
+      <chart>
+        <search base="base">
+          <query>| stats count by "matches{}.domains{}"</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Ports</title>
+      <chart>
+        <search base="base">
+          <query>| stats count by "matches{}.port"</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Products</title>
+      <chart>
+        <search base="base">
+          <query>| stats count by "matches{}.product"</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Hostnames</title>
+      <table>
+        <search base="base">
+          <query>| stats count by "matches{}.hostnames{}"
+| fields - count
+| rename "matches{}.hostnames{}" AS "Host Names"</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>IP Addresses</title>
+      <table>
+        <search base="base">
+          <query>| search "matches{}.ip_str"=* 
+| stats count by "matches{}.ip_str"
+| fields - count
+| rename "matches{}.ip_str" AS "IP Addresses"</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>HTTP Titles</title>
+      <table>
+        <search base="base">
+          <query>| stats count by "matches{}.http.title"
+| fields - count
+| rename "matches{}.http.title" AS "HTTP Titles"</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Vulnerabilities</title>
+      <table>
+        <search base="base">
+          <query>| rex field=_raw "(?&lt;CVE&gt;CVE-[0-9]{4}-[0-9]*)" max_match=10000000
+| stats count by CVE</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
